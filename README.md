@@ -29,7 +29,7 @@ This project is a backend service for parsing and processing CSV files. It is bu
 
 1. Clone the repository:
    ```sh
-   git clone <your-repo-url>
+   https://github.com/AbrehamGebremedhin/csv_parser
    cd csv_parser
    ```
 2. Install dependencies:
@@ -42,7 +42,7 @@ This project is a backend service for parsing and processing CSV files. It is bu
 Start the API server with:
 
 ```sh
-python main.py
+uvicorn app.api.api:app --reload
 ```
 
 The API will be available at `http://localhost:8000`.
