@@ -125,20 +125,6 @@ Test coverage is provided for the core API endpoints, CSV parsing and aggregatio
 - **Utility Modules:**
   - Tests for CSV generation and logging utilities
 
-To check test coverage, you can use the `pytest-cov` plugin:
-
-1. Install the plugin (if not already installed):
-   ```pwsh
-   pip install pytest-cov
-   ```
-2. Run tests with coverage:
-   ```pwsh
-   pytest --cov=app --cov-report=term-missing
-   ```
-   This will display a coverage report in the terminal, showing which lines of code are covered by tests and which are missing coverage.
-
----
-
 ## Algorithm Explanation and Memory Efficiency
 
 The core CSV parsing and aggregation logic is implemented in `app/service/reader_service.py` using the Polars library. The algorithm works as follows:
