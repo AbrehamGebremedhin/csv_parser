@@ -1,4 +1,7 @@
 .venv/
+.pytest_cache/
+
+*.csv
 
 __pycache__/
 *.py[cod]
@@ -6,3 +9,5 @@ __pycache__/
 *.pyd
 *.pdb
 *.pyc
+
+

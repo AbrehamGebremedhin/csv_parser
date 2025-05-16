@@ -26,10 +26,11 @@ async def worker(logger=None):
                 jobs[job_id]["status"] = JobStatus.FAILED
                 jobs[job_id]["error"] = f"CSV validation error: {e}"
                 continue
+                
             jobs[job_id]["status"] = JobStatus.STARTED
             jobs[job_id]["processing_time"] = {"start": time.time(), "end": None}
             service = AsyncCSVReaderService(logger=logger)
-            result_path = await service.aggregate_sales_by_department(file_path, os.path.dirname(file_path))
+            result_path = await service.aggregate_sales_by_department(file_path)
             jobs[job_id]["status"] = JobStatus.FINISHED
             jobs[job_id]["result"] = result_path
             jobs[job_id]["processing_time"]["end"] = time.time()
