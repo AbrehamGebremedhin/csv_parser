@@ -92,3 +92,8 @@ async def download_file_by_id(job_id: str):
     file_name = os.path.basename(file_path)
     logger.info(f"Serving download for job {job_id}, file: {file_path}")
     return FileResponse(path=file_path, filename=file_name, media_type="text/csv")
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for service monitoring."""
+    return {"status": "ok"}

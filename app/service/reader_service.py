@@ -17,6 +17,7 @@ class AsyncCSVReaderService:
     async def aggregate_sales_by_department(
         self,
         input_csv_path: Union[str, bytes],
+        output_dir: Union[str, bytes] = OUTPUT_DIR,
         retries: int = 3,
         delay: float = 2.0
     ) -> str:
@@ -28,7 +29,8 @@ class AsyncCSVReaderService:
                 output_csv_path = await loop.run_in_executor(
                     None,
                     self._aggregate_sales_by_department_dex,
-                    input_csv_path
+                    input_csv_path,
+                    output_dir
                 )
                 self.logger.info(f"Aggregation complete. Output file: {output_csv_path}")
                 return output_csv_path
@@ -44,17 +46,18 @@ class AsyncCSVReaderService:
 
     def _aggregate_sales_by_department_dex(
         self,
-        input_csv_path: Union[str, bytes]
+        input_csv_path: Union[str, bytes],
+        output_dir: Union[str, bytes] = OUTPUT_DIR
     ) -> str:
         try:
             # Ensure output directory exists
-            if not os.path.exists(OUTPUT_DIR):
-                os.makedirs(OUTPUT_DIR, exist_ok=True)
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir, exist_ok=True)
 
             unique_id = uuid.uuid1().hex
             timestamp = datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
             output_csv_path = os.path.join(
-                str(OUTPUT_DIR), f"department_sales_{timestamp}_{unique_id}.csv"
+                str(output_dir), f"department_sales_{timestamp}_{unique_id}.csv"
             )
             self.logger.info(f"Converting CSV to Parquet for file: {input_csv_path}")
             with tempfile.NamedTemporaryFile(suffix='.parquet', delete=True) as tmp_parquet:
